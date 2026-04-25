@@ -24,10 +24,6 @@ const toHHMM = m => {
   return `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 };
 
-function daysBetween(d1, d2){
-  return Math.floor((d1 - d2) / (1000 * 60 * 60 * 24));
-}
-
 /* ───────── DATE ───────── */
 function getIST(){
   const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
@@ -107,7 +103,7 @@ function horas(sr, ss, w){
   return out;
 }
 
-/* ───────── GOWRI (FINAL SAFE) ───────── */
+/* ───────── GOWRI (FINAL FIXED) ───────── */
 
 const GOWRI_SEQ=[
   {en:"Soram", ta:"சோரம்", quality:"bad"},
@@ -120,7 +116,6 @@ const GOWRI_SEQ=[
   {en:"Sugam", ta:"சுகம்", quality:"good"}
 ];
 
-// 🔥 O(1) lookup (no find)
 const GOWRI_INDEX = Object.fromEntries(
   GOWRI_SEQ.map((x,i)=>[x.en,i])
 );
@@ -155,7 +150,6 @@ function gowri(sr, ss, w){
 
   const out=[];
 
-  // DAY
   for(let i=0;i<8;i++){
     const g = GOWRI_SEQ[GOWRI_INDEX[MAP.day[w][i]]];
     out.push({
@@ -166,7 +160,6 @@ function gowri(sr, ss, w){
     });
   }
 
-  // NIGHT
   for(let i=0;i<8;i++){
     const g = GOWRI_SEQ[GOWRI_INDEX[MAP.night[w][i]]];
     out.push({
@@ -256,7 +249,9 @@ async function main(){
     abhijit:abhijit(sr,ss),
 
     horas:horas(sr,ss,weekdayIndex),
-    gowri:gowri(sr,ss,date),
+
+    // 🔥 FIXED
+    gowri:gowri(sr,ss,weekdayIndex),
 
     jamams:jamams(sr,ss),
 
