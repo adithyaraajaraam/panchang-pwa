@@ -107,7 +107,8 @@ function horas(sr, ss, w){
   return out;
 }
 
-/* ───────── GOWRI (ROTATION FIX) ───────── */
+/* ───────── GOWRI (FINAL SAFE) ───────── */
+
 const GOWRI_SEQ=[
   {en:"Soram", ta:"சோரம்", quality:"bad"},
   {en:"Uthi", ta:"உத்தி", quality:"good"},
@@ -119,26 +120,44 @@ const GOWRI_SEQ=[
   {en:"Sugam", ta:"சுகம்", quality:"good"}
 ];
 
-// anchor → Apr 25 2026 = Soram (from your verified data)
-const BASE_DATE = new Date("2026-04-25T00:00:00+05:30");
-const BASE_INDEX = 0; // Soram
+// 🔥 O(1) lookup (no find)
+const GOWRI_INDEX = Object.fromEntries(
+  GOWRI_SEQ.map((x,i)=>[x.en,i])
+);
 
-function gowri(sr, ss, dateStr){
+function gowri(sr, ss, w){
   const d = ss - sr;
   const n = 1440 - d;
 
   const dp = d / 8;
   const np = n / 8;
 
-  const today = new Date(dateStr + "T00:00:00+05:30");
-  const diff = daysBetween(today, BASE_DATE);
-
-  const start = (BASE_INDEX + diff % 8 + 8) % 8;
+  const MAP = {
+    day: {
+      0:["Uthi","Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram","Visham"],
+      1:["Amirdha","Visham","Rogam","Laabam","Dhanam","Sugam","Soram","Uthi"],
+      2:["Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha"],
+      3:["Laabam","Dhanam","Sugam","Soram","Visham","Uthi","Amirdha","Rogam"],
+      4:["Dhanam","Sugam","Soram","Uthi","Amirdha","Visham","Rogam","Laabam"],
+      5:["Sugam","Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam"],
+      6:["Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam"]
+    },
+    night: {
+      0:["Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha","Rogam"],
+      1:["Sugam","Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam"],
+      2:["Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam"],
+      3:["Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram"],
+      4:["Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham"],
+      5:["Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha"],
+      6:["Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha","Rogam"]
+    }
+  };
 
   const out=[];
 
+  // DAY
   for(let i=0;i<8;i++){
-    const g = GOWRI_SEQ[(start+i)%8];
+    const g = GOWRI_SEQ[GOWRI_INDEX[MAP.day[w][i]]];
     out.push({
       period:"day",
       ...g,
@@ -147,8 +166,9 @@ function gowri(sr, ss, dateStr){
     });
   }
 
+  // NIGHT
   for(let i=0;i<8;i++){
-    const g = GOWRI_SEQ[(start+8+i)%8];
+    const g = GOWRI_SEQ[GOWRI_INDEX[MAP.night[w][i]]];
     out.push({
       period:"night",
       ...g,
