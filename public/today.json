@@ -1,0 +1,580 @@
+{
+  "generated": "2026-04-25T15:41:20.496Z",
+  "date": "2026-04-25",
+  "dayLabel": "25 April 2026",
+  "weekday": "Saturday",
+  "sunrise": "06:10",
+  "sunset": "18:25",
+  "rahuKalam": {
+    "start": "09:14",
+    "end": "10:46"
+  },
+  "yamagandam": {
+    "start": "13:49",
+    "end": "15:21"
+  },
+  "gulikai": {
+    "start": "16:53",
+    "end": "18:25"
+  },
+  "abhijit": {
+    "start": "11:54",
+    "end": "12:42"
+  },
+  "horas": [
+    {
+      "planet": "Saturn",
+      "start": "06:10",
+      "end": "07:10"
+    },
+    {
+      "planet": "Sun",
+      "start": "07:10",
+      "end": "08:10"
+    },
+    {
+      "planet": "Moon",
+      "start": "08:10",
+      "end": "09:10"
+    },
+    {
+      "planet": "Mars",
+      "start": "09:10",
+      "end": "10:10"
+    },
+    {
+      "planet": "Mercury",
+      "start": "10:10",
+      "end": "11:10"
+    },
+    {
+      "planet": "Jupiter",
+      "start": "11:10",
+      "end": "12:10"
+    },
+    {
+      "planet": "Venus",
+      "start": "12:10",
+      "end": "13:10"
+    },
+    {
+      "planet": "Saturn",
+      "start": "13:10",
+      "end": "14:10"
+    },
+    {
+      "planet": "Sun",
+      "start": "14:10",
+      "end": "15:10"
+    },
+    {
+      "planet": "Moon",
+      "start": "15:10",
+      "end": "16:10"
+    },
+    {
+      "planet": "Mars",
+      "start": "16:10",
+      "end": "17:10"
+    },
+    {
+      "planet": "Mercury",
+      "start": "17:10",
+      "end": "18:10"
+    },
+    {
+      "planet": "Jupiter",
+      "start": "18:10",
+      "end": "19:10"
+    },
+    {
+      "planet": "Venus",
+      "start": "19:10",
+      "end": "20:10"
+    },
+    {
+      "planet": "Saturn",
+      "start": "20:10",
+      "end": "21:10"
+    },
+    {
+      "planet": "Sun",
+      "start": "21:10",
+      "end": "22:10"
+    },
+    {
+      "planet": "Moon",
+      "start": "22:10",
+      "end": "23:10"
+    },
+    {
+      "planet": "Mars",
+      "start": "23:10",
+      "end": "00:10"
+    },
+    {
+      "planet": "Mercury",
+      "start": "00:10",
+      "end": "01:10"
+    },
+    {
+      "planet": "Jupiter",
+      "start": "01:10",
+      "end": "02:10"
+    },
+    {
+      "planet": "Venus",
+      "start": "02:10",
+      "end": "03:10"
+    },
+    {
+      "planet": "Saturn",
+      "start": "03:10",
+      "end": "04:10"
+    },
+    {
+      "planet": "Sun",
+      "start": "04:10",
+      "end": "05:10"
+    },
+    {
+      "planet": "Moon",
+      "start": "05:10",
+      "end": "06:10"
+    }
+  ],
+  "gowri": [
+    {
+      "en": "Amritha",
+      "ta": "அமிர்தம்",
+      "quality": "good",
+      "start": "06:10",
+      "end": "07:42"
+    },
+    {
+      "en": "Marana",
+      "ta": "மரணம்",
+      "quality": "bad",
+      "start": "07:42",
+      "end": "09:14"
+    },
+    {
+      "en": "Dhaanya",
+      "ta": "தான்யம்",
+      "quality": "good",
+      "start": "09:14",
+      "end": "10:46"
+    },
+    {
+      "en": "Soumya",
+      "ta": "சௌம்யம்",
+      "quality": "good",
+      "start": "10:46",
+      "end": "12:18"
+    },
+    {
+      "en": "Rogam",
+      "ta": "ரோகம்",
+      "quality": "medium",
+      "start": "12:18",
+      "end": "13:49"
+    },
+    {
+      "en": "Laabham",
+      "ta": "லாபம்",
+      "quality": "good",
+      "start": "13:49",
+      "end": "15:21"
+    },
+    {
+      "en": "Subham",
+      "ta": "சுபம்",
+      "quality": "bad",
+      "start": "15:21",
+      "end": "16:53"
+    },
+    {
+      "en": "Dhandam",
+      "ta": "தண்டம்",
+      "quality": "good",
+      "start": "16:53",
+      "end": "18:25"
+    }
+  ],
+  "jamams": [
+    {
+      "period": "day",
+      "jamam": 1,
+      "rulingBird": "crow",
+      "states": {
+        "vulture": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "owl": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "crow": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "rooster": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "peacock": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        }
+      },
+      "start": "06:10",
+      "end": "08:37"
+    },
+    {
+      "period": "day",
+      "jamam": 2,
+      "rulingBird": "rooster",
+      "states": {
+        "vulture": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "owl": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "crow": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "rooster": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "peacock": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        }
+      },
+      "start": "08:37",
+      "end": "11:04"
+    },
+    {
+      "period": "day",
+      "jamam": 3,
+      "rulingBird": "peacock",
+      "states": {
+        "vulture": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "owl": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "crow": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "rooster": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "peacock": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        }
+      },
+      "start": "11:04",
+      "end": "13:31"
+    },
+    {
+      "period": "day",
+      "jamam": 4,
+      "rulingBird": "vulture",
+      "states": {
+        "vulture": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "owl": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "crow": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "rooster": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "peacock": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        }
+      },
+      "start": "13:31",
+      "end": "15:58"
+    },
+    {
+      "period": "day",
+      "jamam": 5,
+      "rulingBird": "owl",
+      "states": {
+        "vulture": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "owl": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "crow": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "rooster": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "peacock": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        }
+      },
+      "start": "15:58",
+      "end": "18:25"
+    },
+    {
+      "period": "night",
+      "jamam": 1,
+      "rulingBird": "owl",
+      "states": {
+        "vulture": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "owl": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "crow": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "rooster": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "peacock": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        }
+      },
+      "start": "18:25",
+      "end": "20:46"
+    },
+    {
+      "period": "night",
+      "jamam": 2,
+      "rulingBird": "vulture",
+      "states": {
+        "vulture": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "owl": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "crow": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "rooster": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "peacock": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        }
+      },
+      "start": "20:46",
+      "end": "23:07"
+    },
+    {
+      "period": "night",
+      "jamam": 3,
+      "rulingBird": "peacock",
+      "states": {
+        "vulture": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "owl": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "crow": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "rooster": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "peacock": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        }
+      },
+      "start": "23:07",
+      "end": "01:28"
+    },
+    {
+      "period": "night",
+      "jamam": 4,
+      "rulingBird": "rooster",
+      "states": {
+        "vulture": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        },
+        "owl": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "crow": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "rooster": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "peacock": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        }
+      },
+      "start": "01:28",
+      "end": "03:49"
+    },
+    {
+      "period": "night",
+      "jamam": 5,
+      "rulingBird": "crow",
+      "states": {
+        "vulture": {
+          "en": "Sleep",
+          "ta": "தூக்கம்",
+          "quality": "orange"
+        },
+        "owl": {
+          "en": "Die",
+          "ta": "மரணம்",
+          "quality": "bad"
+        },
+        "crow": {
+          "en": "Rule",
+          "ta": "வல்லமை",
+          "quality": "good"
+        },
+        "rooster": {
+          "en": "Eat",
+          "ta": "உண்",
+          "quality": "good"
+        },
+        "peacock": {
+          "en": "Walk",
+          "ta": "நடை",
+          "quality": "medium"
+        }
+      },
+      "start": "03:49",
+      "end": "06:10"
+    }
+  ],
+  "users": [
+    {
+      "name": "N. Raajaraam",
+      "dob": "1970-04-26",
+      "place": "Chennai",
+      "rasi": "Thanusu",
+      "nakshatra": "Moolam",
+      "pakshi": "vulture"
+    },
+    {
+      "name": "R. Madubala",
+      "dob": "1977-02-16",
+      "place": "Tirutturaipundi",
+      "rasi": "Makaram",
+      "nakshatra": "Uthiradam",
+      "pakshi": "crow"
+    },
+    {
+      "name": "R. Adithya",
+      "dob": "2001-09-14",
+      "place": "Chennai",
+      "rasi": "Kadagam",
+      "nakshatra": "Poosam",
+      "pakshi": "owl"
+    },
+    {
+      "name": "R. Arudhra",
+      "dob": "2004-09-16",
+      "place": "Chennai",
+      "rasi": "Kanni",
+      "nakshatra": "Hastham",
+      "pakshi": "rooster"
+    }
+  ]
+}
