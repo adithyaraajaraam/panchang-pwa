@@ -144,128 +144,128 @@
   "gowri": [
     {
       "period": "day",
-      "en": "Soumya",
-      "ta": "சௌம்யம்",
-      "quality": "good",
+      "en": "Soram",
+      "ta": "சோரம்",
+      "quality": "bad",
       "start": "05:49",
       "end": "07:23"
     },
     {
       "period": "day",
-      "en": "Rogam",
-      "ta": "ரோகம்",
-      "quality": "bad",
+      "en": "Uthi",
+      "ta": "உத்தி",
+      "quality": "good",
       "start": "07:23",
       "end": "08:58"
     },
     {
       "period": "day",
-      "en": "Laabham",
-      "ta": "லாபம்",
-      "quality": "good",
+      "en": "Visham",
+      "ta": "விஷம்",
+      "quality": "bad",
       "start": "08:58",
       "end": "10:32"
     },
     {
       "period": "day",
-      "en": "Subham",
-      "ta": "சுபம்",
+      "en": "Amirdha",
+      "ta": "அமிர்தம்",
       "quality": "good",
       "start": "10:32",
       "end": "12:07"
     },
     {
       "period": "day",
-      "en": "Dhandam",
-      "ta": "தண்டம்",
-      "quality": "medium",
+      "en": "Rogam",
+      "ta": "ரோகம்",
+      "quality": "bad",
       "start": "12:07",
       "end": "13:41"
     },
     {
       "period": "day",
-      "en": "Amritha",
-      "ta": "அமிர்தம்",
+      "en": "Laabam",
+      "ta": "லாபம்",
       "quality": "good",
       "start": "13:41",
       "end": "15:15"
     },
     {
       "period": "day",
-      "en": "Marana",
-      "ta": "மரணம்",
-      "quality": "bad",
+      "en": "Dhanam",
+      "ta": "தனம்",
+      "quality": "good",
       "start": "15:15",
       "end": "16:50"
     },
     {
       "period": "day",
-      "en": "Dhaanya",
-      "ta": "தான்யம்",
+      "en": "Sugam",
+      "ta": "சுகம்",
       "quality": "good",
       "start": "16:50",
       "end": "18:24"
     },
     {
       "period": "night",
-      "en": "Soumya",
-      "ta": "சௌம்யம்",
-      "quality": "good",
+      "en": "Soram",
+      "ta": "சோரம்",
+      "quality": "bad",
       "start": "18:24",
       "end": "19:50"
     },
     {
       "period": "night",
-      "en": "Rogam",
-      "ta": "ரோகம்",
-      "quality": "bad",
+      "en": "Uthi",
+      "ta": "உத்தி",
+      "quality": "good",
       "start": "19:50",
       "end": "21:15"
     },
     {
       "period": "night",
-      "en": "Laabham",
-      "ta": "லாபம்",
-      "quality": "good",
+      "en": "Visham",
+      "ta": "விஷம்",
+      "quality": "bad",
       "start": "21:15",
       "end": "22:41"
     },
     {
       "period": "night",
-      "en": "Subham",
-      "ta": "சுபம்",
+      "en": "Amirdha",
+      "ta": "அமிர்தம்",
       "quality": "good",
       "start": "22:41",
       "end": "00:07"
     },
     {
       "period": "night",
-      "en": "Dhandam",
-      "ta": "தண்டம்",
-      "quality": "medium",
+      "en": "Rogam",
+      "ta": "ரோகம்",
+      "quality": "bad",
       "start": "00:07",
       "end": "01:32"
     },
     {
       "period": "night",
-      "en": "Amritha",
-      "ta": "அமிர்தம்",
+      "en": "Laabam",
+      "ta": "லாபம்",
       "quality": "good",
       "start": "01:32",
       "end": "02:58"
     },
     {
       "period": "night",
-      "en": "Marana",
-      "ta": "மரணம்",
-      "quality": "bad",
+      "en": "Dhanam",
+      "ta": "தனம்",
+      "quality": "good",
       "start": "02:58",
       "end": "04:23"
     },
     {
       "period": "night",
-      "en": "Dhaanya",
-      "ta": "தான்யம்",
+      "en": "Sugam",
+      "ta": "சுகம்",
       "quality": "good",
       "start": "04:23",
       "end": "05:49"
