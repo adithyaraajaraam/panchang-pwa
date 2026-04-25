@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import fs from "fs";
 import path from "path";
-import fetch from "node-fetch";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -16,7 +15,6 @@ const USERS = [
 
 /* ───────── HELPERS ───────── */
 const toMins = t => {
-  if(!t) return 0;
   const [h,m] = t.split(":").map(Number);
   return h*60+m;
 };
@@ -26,44 +24,21 @@ const toHHMM = m => {
   return `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 };
 
-/* ───────── IST TIME ───────── */
-function getCurrentIST(){
-  return new Date().toLocaleTimeString("en-GB",{
-    timeZone:"Asia/Kolkata",
-    hour:"2-digit",
-    minute:"2-digit"
-  });
-}
-
-/* ───────── PANCHANG DATE (SUNRISE BASED) ───────── */
-function getPanchangDate(sunriseStr){
-  const nowIST = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-
-  const [h,m] = sunriseStr.split(":").map(Number);
-
-  const sunrise = new Date(nowIST);
-  sunrise.setHours(h,m,0,0);
-
-  let ref = new Date(nowIST);
-
-  if(nowIST < sunrise){
-    ref.setDate(ref.getDate() - 1);
-  }
-
+/* ───────── DATE ───────── */
+function getIST(){
+  const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
   return {
-    date: ref.toISOString().slice(0,10),
-    weekdayIndex: ref.getDay(),
-    weekday: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][ref.getDay()]
+    date: d.toISOString().slice(0,10),
+    weekdayIndex: d.getDay(),
+    weekday: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()]
   };
 }
 
-/* ───────── SUN (CHENNAI) ───────── */
+/* ───────── SUN ───────── */
 async function getSunTimes(){
   try{
     const res = await fetch("https://api.sunrise-sunset.org/json?lat=13.0827&lng=80.2707&formatted=0");
     const j = await res.json();
-
-    if(!j?.results) throw new Error("bad api");
 
     const sunrise = new Date(j.results.sunrise)
       .toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});
@@ -72,7 +47,6 @@ async function getSunTimes(){
       .toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});
 
     return {sunrise, sunset};
-
   }catch{
     return {sunrise:"05:50", sunset:"18:23"};
   }
@@ -129,7 +103,8 @@ function horas(sr, ss, w){
   return out;
 }
 
-/* ───────── GOWRI (SAFE + NO CRASH) ───────── */
+/* ───────── GOWRI (FINAL FIXED) ───────── */
+
 const GOWRI_SEQ=[
   {en:"Soram", ta:"சோரம்", quality:"bad"},
   {en:"Uthi", ta:"உத்தி", quality:"good"},
@@ -141,6 +116,10 @@ const GOWRI_SEQ=[
   {en:"Sugam", ta:"சுகம்", quality:"good"}
 ];
 
+const GOWRI_INDEX = Object.fromEntries(
+  GOWRI_SEQ.map((x,i)=>[x.en,i])
+);
+
 function gowri(sr, ss, w){
   const d = ss - sr;
   const n = 1440 - d;
@@ -148,13 +127,31 @@ function gowri(sr, ss, w){
   const dp = d / 8;
   const np = n / 8;
 
-  // ✅ FIXED (all 7 days mapped)
-  const startIndex = [0,1,2,3,4,5,6][w];
+  const MAP = {
+    day: {
+      0:["Uthi","Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram","Visham"],
+      1:["Amirdha","Visham","Rogam","Laabam","Dhanam","Sugam","Soram","Uthi"],
+      2:["Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha"],
+      3:["Laabam","Dhanam","Sugam","Soram","Visham","Uthi","Amirdha","Rogam"],
+      4:["Dhanam","Sugam","Soram","Uthi","Amirdha","Visham","Rogam","Laabam"],
+      5:["Sugam","Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam"],
+      6:["Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam"]
+    },
+    night: {
+      0:["Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha","Rogam"],
+      1:["Sugam","Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam"],
+      2:["Soram","Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam"],
+      3:["Uthi","Visham","Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram"],
+      4:["Amirdha","Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham"],
+      5:["Rogam","Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha"],
+      6:["Laabam","Dhanam","Sugam","Soram","Uthi","Visham","Amirdha","Rogam"]
+    }
+  };
 
   const out=[];
 
   for(let i=0;i<8;i++){
-    const g = GOWRI_SEQ[(startIndex+i)%8] || GOWRI_SEQ[0];
+    const g = GOWRI_SEQ[GOWRI_INDEX[MAP.day[w][i]]];
     out.push({
       period:"day",
       ...g,
@@ -164,7 +161,7 @@ function gowri(sr, ss, w){
   }
 
   for(let i=0;i<8;i++){
-    const g = GOWRI_SEQ[(startIndex+8+i)%8] || GOWRI_SEQ[0];
+    const g = GOWRI_SEQ[GOWRI_INDEX[MAP.night[w][i]]];
     out.push({
       period:"night",
       ...g,
@@ -176,23 +173,74 @@ function gowri(sr, ss, w){
   return out;
 }
 
+/* ───────── PAKSHI ───────── */
+const BIRDS=["owl","crow","rooster","peacock","falcon"];
+const ACT=[
+  {en:"Rule",ta:"ஆட்சி",quality:"good"},
+  {en:"Eat",ta:"உண்",quality:"good"},
+  {en:"Walk",ta:"நடை",quality:"medium"},
+  {en:"Sleep",ta:"தூக்கம்",quality:"orange"},
+  {en:"Die",ta:"மரணம்",quality:"bad"}
+];
+
+function states(r){
+  const s={};
+  BIRDS.forEach((b,i)=>{
+    const o=((i-r)%5+5)%5;
+    s[b]=ACT[o];
+  });
+  return s;
+}
+
+function jamams(sr, ss){
+  const d=ss-sr;
+  const n=1440-d;
+  const dp=d/5;
+  const np=n/5;
+
+  const out=[];
+
+  for(let j=0;j<5;j++){
+    const st=sr+j*dp;
+    out.push({
+      period:"day",
+      jamam:j+1,
+      rulingBird:BIRDS[j],
+      states:states(j),
+      start:toHHMM(st),
+      end:toHHMM(st+dp)
+    });
+  }
+
+  for(let j=0;j<5;j++){
+    const st=ss+j*np;
+    const r=(4-j)%5;
+    out.push({
+      period:"night",
+      jamam:j+1,
+      rulingBird:BIRDS[r],
+      states:states(r),
+      start:toHHMM(st),
+      end:toHHMM(st+np)
+    });
+  }
+
+  return out;
+}
+
 /* ───────── MAIN ───────── */
 async function main(){
-
+  const {date,weekdayIndex,weekday}=getIST();
   const {sunrise,sunset}=await getSunTimes();
-  const {date,weekdayIndex,weekday}=getPanchangDate(sunrise);
-
-  const now = getCurrentIST();
 
   const sr=toMins(sunrise);
   const ss=toMins(sunset);
 
   const data={
-    date: date || "",
-    weekday: weekday || "",
-    now: now || "",
-    sunrise: sunrise || "",
-    sunset: sunset || "",
+    date,
+    weekday,
+    sunrise,
+    sunset,
 
     rahuKalam:kalam(sr,ss,RAHU,weekdayIndex),
     yamagandam:kalam(sr,ss,YAMA,weekdayIndex),
@@ -200,10 +248,14 @@ async function main(){
 
     abhijit:abhijit(sr,ss),
 
-    horas:horas(sr,ss,weekdayIndex) || [],
-    gowri:gowri(sr,ss,weekdayIndex) || [],
+    horas:horas(sr,ss,weekdayIndex),
 
-    users: USERS
+    // 🔥 FIXED
+    gowri:gowri(sr,ss,weekdayIndex),
+
+    jamams:jamams(sr,ss),
+
+    users:USERS
   };
 
   fs.writeFileSync(
@@ -215,3 +267,6 @@ async function main(){
 }
 
 await main();
+
+
+
