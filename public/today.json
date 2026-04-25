@@ -3,17 +3,21 @@
   "weekday": "Saturday",
   "sunrise": "05:49",
   "sunset": "18:24",
-  "rahu": {
+  "rahuKalam": {
     "start": "08:58",
     "end": "10:32"
   },
-  "yama": {
+  "yamagandam": {
     "start": "13:41",
     "end": "15:15"
   },
   "gulikai": {
     "start": "16:50",
     "end": "18:24"
+  },
+  "abhijit": {
+    "start": "11:43",
+    "end": "12:31"
   },
   "horas": [
     {
@@ -142,7 +146,7 @@
       "period": "day",
       "en": "Soumya",
       "ta": "சௌம்யம்",
-      "q": "good",
+      "quality": "good",
       "start": "05:49",
       "end": "07:23"
     },
@@ -150,7 +154,7 @@
       "period": "day",
       "en": "Rogam",
       "ta": "ரோகம்",
-      "q": "bad",
+      "quality": "bad",
       "start": "07:23",
       "end": "08:58"
     },
@@ -158,7 +162,7 @@
       "period": "day",
       "en": "Laabham",
       "ta": "லாபம்",
-      "q": "good",
+      "quality": "good",
       "start": "08:58",
       "end": "10:32"
     },
@@ -166,7 +170,7 @@
       "period": "day",
       "en": "Subham",
       "ta": "சுபம்",
-      "q": "good",
+      "quality": "good",
       "start": "10:32",
       "end": "12:07"
     },
@@ -174,7 +178,7 @@
       "period": "day",
       "en": "Dhandam",
       "ta": "தண்டம்",
-      "q": "medium",
+      "quality": "medium",
       "start": "12:07",
       "end": "13:41"
     },
@@ -182,7 +186,7 @@
       "period": "day",
       "en": "Amritha",
       "ta": "அமிர்தம்",
-      "q": "good",
+      "quality": "good",
       "start": "13:41",
       "end": "15:15"
     },
@@ -190,7 +194,7 @@
       "period": "day",
       "en": "Marana",
       "ta": "மரணம்",
-      "q": "bad",
+      "quality": "bad",
       "start": "15:15",
       "end": "16:50"
     },
@@ -198,7 +202,7 @@
       "period": "day",
       "en": "Dhaanya",
       "ta": "தான்யம்",
-      "q": "good",
+      "quality": "good",
       "start": "16:50",
       "end": "18:24"
     },
@@ -206,7 +210,7 @@
       "period": "night",
       "en": "Soumya",
       "ta": "சௌம்யம்",
-      "q": "good",
+      "quality": "good",
       "start": "18:24",
       "end": "19:50"
     },
@@ -214,7 +218,7 @@
       "period": "night",
       "en": "Rogam",
       "ta": "ரோகம்",
-      "q": "bad",
+      "quality": "bad",
       "start": "19:50",
       "end": "21:15"
     },
@@ -222,7 +226,7 @@
       "period": "night",
       "en": "Laabham",
       "ta": "லாபம்",
-      "q": "good",
+      "quality": "good",
       "start": "21:15",
       "end": "22:41"
     },
@@ -230,7 +234,7 @@
       "period": "night",
       "en": "Subham",
       "ta": "சுபம்",
-      "q": "good",
+      "quality": "good",
       "start": "22:41",
       "end": "00:07"
     },
@@ -238,7 +242,7 @@
       "period": "night",
       "en": "Dhandam",
       "ta": "தண்டம்",
-      "q": "medium",
+      "quality": "medium",
       "start": "00:07",
       "end": "01:32"
     },
@@ -246,7 +250,7 @@
       "period": "night",
       "en": "Amritha",
       "ta": "அமிர்தம்",
-      "q": "good",
+      "quality": "good",
       "start": "01:32",
       "end": "02:58"
     },
@@ -254,7 +258,7 @@
       "period": "night",
       "en": "Marana",
       "ta": "மரணம்",
-      "q": "bad",
+      "quality": "bad",
       "start": "02:58",
       "end": "04:23"
     },
@@ -262,7 +266,7 @@
       "period": "night",
       "en": "Dhaanya",
       "ta": "தான்யம்",
-      "q": "good",
+      "quality": "good",
       "start": "04:23",
       "end": "05:49"
     }
@@ -271,32 +275,32 @@
     {
       "period": "day",
       "jamam": 1,
-      "ruling": "owl",
+      "rulingBird": "owl",
       "states": {
         "owl": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "crow": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "rooster": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "peacock": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "falcon": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         }
       },
       "start": "05:49",
@@ -305,32 +309,32 @@
     {
       "period": "day",
       "jamam": 2,
-      "ruling": "crow",
+      "rulingBird": "crow",
       "states": {
         "owl": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "crow": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "rooster": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "peacock": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "falcon": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         }
       },
       "start": "08:20",
@@ -339,32 +343,32 @@
     {
       "period": "day",
       "jamam": 3,
-      "ruling": "rooster",
+      "rulingBird": "rooster",
       "states": {
         "owl": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "crow": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "rooster": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "peacock": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "falcon": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         }
       },
       "start": "10:51",
@@ -373,32 +377,32 @@
     {
       "period": "day",
       "jamam": 4,
-      "ruling": "peacock",
+      "rulingBird": "peacock",
       "states": {
         "owl": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "crow": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "rooster": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "peacock": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "falcon": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         }
       },
       "start": "13:22",
@@ -407,32 +411,32 @@
     {
       "period": "day",
       "jamam": 5,
-      "ruling": "falcon",
+      "rulingBird": "falcon",
       "states": {
         "owl": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "crow": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "rooster": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "peacock": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "falcon": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         }
       },
       "start": "15:53",
@@ -441,32 +445,32 @@
     {
       "period": "night",
       "jamam": 1,
-      "ruling": "falcon",
+      "rulingBird": "falcon",
       "states": {
         "owl": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "crow": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "rooster": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "peacock": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "falcon": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         }
       },
       "start": "18:24",
@@ -475,32 +479,32 @@
     {
       "period": "night",
       "jamam": 2,
-      "ruling": "peacock",
+      "rulingBird": "peacock",
       "states": {
         "owl": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "crow": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "rooster": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "peacock": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "falcon": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         }
       },
       "start": "20:41",
@@ -509,32 +513,32 @@
     {
       "period": "night",
       "jamam": 3,
-      "ruling": "rooster",
+      "rulingBird": "rooster",
       "states": {
         "owl": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "crow": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "rooster": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "peacock": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "falcon": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         }
       },
       "start": "22:58",
@@ -543,32 +547,32 @@
     {
       "period": "night",
       "jamam": 4,
-      "ruling": "crow",
+      "rulingBird": "crow",
       "states": {
         "owl": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         },
         "crow": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "rooster": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "peacock": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "falcon": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         }
       },
       "start": "01:15",
@@ -577,32 +581,32 @@
     {
       "period": "night",
       "jamam": 5,
-      "ruling": "owl",
+      "rulingBird": "owl",
       "states": {
         "owl": {
           "en": "Rule",
           "ta": "வல்லமை",
-          "q": "good"
+          "quality": "good"
         },
         "crow": {
           "en": "Eat",
           "ta": "உண்",
-          "q": "good"
+          "quality": "good"
         },
         "rooster": {
           "en": "Walk",
           "ta": "நடை",
-          "q": "medium"
+          "quality": "medium"
         },
         "peacock": {
           "en": "Sleep",
           "ta": "தூக்கம்",
-          "q": "orange"
+          "quality": "orange"
         },
         "falcon": {
           "en": "Die",
           "ta": "மரணம்",
-          "q": "bad"
+          "quality": "bad"
         }
       },
       "start": "03:32",
