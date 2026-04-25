@@ -2,32 +2,30 @@ name: Daily Panchang Generate
 
 on:
   schedule:
-    - cron: "31 18 * * *"   # 00:01 IST
+    - cron: "31 18 * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   generate:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Install deps
-        run: npm install
+      - run: npm install
 
-      - name: Generate today.json
-        run: node generate.js
+      - run: node generate.js
 
-      - name: Commit & Push
-        run: |
-          git config user.name "bot"
-          git config user.email "bot@mail.com"
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/today.json
           git commit -m "update today.json" || echo "no changes"
           git push
