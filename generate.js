@@ -23,7 +23,7 @@ const toHHMM = m => {
   return `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 };
 
-// ─── DYNAMIC SUN (with fallback) ───────────────────────────────────────────
+// ─── SUN (DYNAMIC + FALLBACK) ──────────────────────────────────────────────
 async function getSunTimes() {
   try {
     const res = await fetch("https://api.sunrise-sunset.org/json?lat=13.0827&lng=80.2707&formatted=0");
@@ -31,12 +31,12 @@ async function getSunTimes() {
 
     const sunrise = new Date(j.results.sunrise)
       .toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});
+
     const sunset = new Date(j.results.sunset)
       .toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});
 
     return { sunrise, sunset };
   } catch {
-    // fallback
     return { sunrise:"06:00", sunset:"18:00" };
   }
 }
@@ -46,89 +46,98 @@ function getIST() {
   const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
   return {
     date: d.toISOString().slice(0,10),
+    weekday: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()],
     weekdayIndex: d.getDay()
   };
 }
 
-// ─── RAHU/YAMA/GULI ────────────────────────────────────────────────────────
+// ─── RAHU / YAMA / GULIKAI ────────────────────────────────────────────────
 const RAHU=[8,2,7,5,6,4,3];
 const YAMA=[5,4,3,2,1,7,6];
 const GULI=[7,6,5,4,3,2,8];
 
-function kalam(sunrise,sunset,order,w) {
-  const part=(sunset-sunrise)/8;
-  const s=sunrise+(order[w]-1)*part;
+function kalam(sr,ss,order,w) {
+  const part=(ss-sr)/8;
+  const s=sr+(order[w]-1)*part;
   return {start:toHHMM(s),end:toHHMM(s+part)};
 }
 
-// ─── HORA ──────────────────────────────────────────────────────────────────
+// ─── ABHIJIT ──────────────────────────────────────────────────────────────
+function abhijit(sr, ss) {
+  const mid = (sr + ss) / 2;
+  return {
+    start: toHHMM(mid - 24),
+    end: toHHMM(mid + 24)
+  };
+}
+
+// ─── HORA ─────────────────────────────────────────────────────────────────
 const PLANETS=["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"];
 
-function horas(sunrise,w) {
+function horas(sr,w) {
   return Array.from({length:24},(_,i)=>({
     planet:PLANETS[(w+i)%7],
-    start:toHHMM(sunrise+i*60),
-    end:toHHMM(sunrise+(i+1)*60)
+    start:toHHMM(sr+i*60),
+    end:toHHMM(sr+(i+1)*60)
   }));
 }
 
-// ─── GOWRI ─────────────────────────────────────────────────────────────────
+// ─── GOWRI ────────────────────────────────────────────────────────────────
 const GOWRI=[
-  {en:"Amritha",q:"good"},
-  {en:"Marana",q:"bad"},
-  {en:"Dhaanya",q:"good"},
-  {en:"Soumya",q:"good"},
-  {en:"Rogam",q:"bad"},
-  {en:"Laabham",q:"good"},
-  {en:"Subham",q:"good"},
-  {en:"Dhandam",q:"medium"}
+  {en:"Amritha",ta:"அமிர்தம்",q:"good"},
+  {en:"Marana",ta:"மரணம்",q:"bad"},
+  {en:"Dhaanya",ta:"தான்யம்",q:"good"},
+  {en:"Soumya",ta:"சௌம்யம்",q:"good"},
+  {en:"Rogam",ta:"ரோகம்",q:"bad"},
+  {en:"Laabham",ta:"லாபம்",q:"good"},
+  {en:"Subham",ta:"சுபம்",q:"good"},
+  {en:"Dhandam",ta:"தண்டம்",q:"medium"}
 ];
 const OFF=[0,4,1,5,2,6,3];
 
-function gowri(sunrise,sunset,w){
-  const p=(sunset-sunrise)/8;
+function gowri(sr,ss,w){
+  const p=(ss-sr)/8;
   const off=OFF[w];
   return GOWRI.map((g,i)=>({
-    ...g,
+    en:g.en,
+    ta:g.ta,
     quality:GOWRI[(i+off)%8].q,
-    start:toHHMM(sunrise+i*p),
-    end:toHHMM(sunrise+(i+1)*p)
+    start:toHHMM(sr+i*p),
+    end:toHHMM(sr+(i+1)*p)
   }));
 }
 
-// ─── PANCHA PAKSHI (FINAL PRACTICAL) ───────────────────────────────────────
+// ─── PANCHA PAKSHI ────────────────────────────────────────────────────────
 const BIRDS=["owl","crow","rooster","peacock","falcon"];
 const ACT=[
-  {en:"Rule",q:"good"},
-  {en:"Eat",q:"good"},
-  {en:"Walk",q:"medium"},
-  {en:"Sleep",q:"orange"},
-  {en:"Die",q:"bad"}
+  {en:"Rule",ta:"வல்லமை",quality:"good"},
+  {en:"Eat",ta:"உண்",quality:"good"},
+  {en:"Walk",ta:"நடை",quality:"medium"},
+  {en:"Sleep",ta:"தூக்கம்",quality:"orange"},
+  {en:"Die",ta:"மரணம்",quality:"bad"}
 ];
 
-// practical: owl start (since you’re not computing paksha)
-function states(rIdx){
+function states(r){
   const s={};
   BIRDS.forEach((b,i)=>{
-    const o=((i-rIdx)%5+5)%5;
+    const o=((i-r)%5+5)%5;
     s[b]=ACT[o];
   });
   return s;
 }
 
-function jamams(sunrise,sunset){
-  const d=sunset-sunrise;
-  const n=1440-d;
+function jamams(sr,ss){
+  const d=ss-sr, n=1440-d;
   const dp=d/5, np=n/5;
-
   const out=[];
 
   for(let j=0;j<5;j++){
     const r=j%5;
-    const st=sunrise+j*dp;
+    const st=sr+j*dp;
     out.push({
       period:"day",
-      ruling:BIRDS[r],
+      jamam:j+1,
+      rulingBird:BIRDS[r],
       states:states(r),
       start:toHHMM(st),
       end:toHHMM(st+dp)
@@ -137,10 +146,11 @@ function jamams(sunrise,sunset){
 
   for(let j=0;j<5;j++){
     const r=(4-j)%5;
-    const st=sunset+j*np;
+    const st=ss+j*np;
     out.push({
       period:"night",
-      ruling:BIRDS[r],
+      jamam:j+1,
+      rulingBird:BIRDS[r],
       states:states(r),
       start:toHHMM(st),
       end:toHHMM(st+np)
@@ -150,9 +160,9 @@ function jamams(sunrise,sunset){
   return out;
 }
 
-// ─── MAIN ──────────────────────────────────────────────────────────────────
+// ─── MAIN ─────────────────────────────────────────────────────────────────
 async function main(){
-  const {date,weekdayIndex}=getIST();
+  const {date,weekday,weekdayIndex}=getIST();
   const {sunrise,sunset}=await getSunTimes();
 
   const sr=toMins(sunrise);
@@ -160,11 +170,13 @@ async function main(){
 
   const data={
     date,
+    weekday,
     sunrise,
     sunset,
-    rahu:kalam(sr,ss,RAHU,weekdayIndex),
-    yama:kalam(sr,ss,YAMA,weekdayIndex),
+    rahuKalam:kalam(sr,ss,RAHU,weekdayIndex),
+    yamagandam:kalam(sr,ss,YAMA,weekdayIndex),
     gulikai:kalam(sr,ss,GULI,weekdayIndex),
+    abhijit:abhijit(sr,ss),
     horas:horas(sr,weekdayIndex),
     gowri:gowri(sr,ss,weekdayIndex),
     jamams:jamams(sr,ss),
@@ -176,7 +188,7 @@ async function main(){
     JSON.stringify(data,null,2)
   );
 
-  console.log("✅ done");
+  console.log("✅ today.json generated");
 }
 
 await main();
