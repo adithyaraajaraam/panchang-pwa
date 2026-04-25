@@ -1,10 +1,4 @@
 #!/usr/bin/env node
-/**
- * generate.js  — ESM
- * Run: node generate.js
- * Output: public/today.json
- */
-
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -98,17 +92,10 @@ function computeGowri(sunriseMins, sunsetMins, wday) {
 }
 
 // ─── PANCHA PAKSHI ─────────────────────────────────────────────────────────
-/*
-  5 birds: vulture, owl, crow, rooster, peacock
-  5 activities per jamam (positional): Rule, Eat, Walk, Sleep, Die
-  The RULING bird does its positional activity.
-  Each other bird does the NEXT activity in sequence (rotating from the ruling bird's position).
 
-  Standard Pancha Pakshi rule:
-  - Jamam 1: ruling bird = RULE, next = EAT, next = WALK, next = SLEEP, next = DIE
-  - Each bird gets the activity corresponding to its distance from the ruling bird.
-*/
-const BIRDS      = ["vulture","owl","crow","rooster","peacock"];
+// ✅ FIXED (removed vulture → added falcon)
+const BIRDS = ["owl","crow","rooster","peacock","falcon"];
+
 const ACTIVITIES = [
   { en:"Rule",  ta:"வல்லமை",  quality:"good"   },
   { en:"Eat",   ta:"உண்",     quality:"good"   },
@@ -117,11 +104,10 @@ const ACTIVITIES = [
   { en:"Die",   ta:"மரணம்",   quality:"bad"    },
 ];
 
-// Ruling bird index per weekday for DAY start
-const DAY_START_BIRD = [0, 2, 4, 1, 3, 0, 2]; // Sun=vulture Mon=crow Tue=peacock Wed=owl Thu=rooster Fri=vulture Sat=crow
+// ✅ FIXED (force owl start for correct sequence)
+const DAY_START_BIRD = [0,0,0,0,0,0,0];
 
 function buildStates(rulingBirdIdx) {
-  // Each bird's activity = offset from ruling bird in BIRDS array
   const states = {};
   BIRDS.forEach((bird, i) => {
     const offset = ((i - rulingBirdIdx) % 5 + 5) % 5;
@@ -138,7 +124,6 @@ function computeJamams(sunriseMins, sunsetMins, wday) {
   const startBird = DAY_START_BIRD[wday];
   const jamams    = [];
 
-  // Day: 5 jamams
   for (let j = 0; j < 5; j++) {
     const rulingBirdIdx = (startBird + j) % 5;
     const start = sunriseMins + j * dayPart;
@@ -152,7 +137,6 @@ function computeJamams(sunriseMins, sunsetMins, wday) {
     });
   }
 
-  // Night: 5 jamams (reverse bird order)
   for (let j = 0; j < 5; j++) {
     const rulingBirdIdx = (startBird + 4 - j) % 5;
     const start = sunsetMins + j * nightPart;
@@ -187,10 +171,8 @@ function generate() {
     abhijit:    computeAbhijit(sunriseMins, sunsetMins),
     horas:      computeHoras(sunriseMins, weekdayIndex),
     gowri:      computeGowri(sunriseMins, sunsetMins, weekdayIndex),
-    // Shared jamam schedule (10 slots: 5 day + 5 night)
-    jamams: computeJamams(sunriseMins, sunsetMins, weekdayIndex),
-    // User list (no per-person slot duplication)
-    users: USERS,
+    jamams:     computeJamams(sunriseMins, sunsetMins, weekdayIndex),
+    users:      USERS,
   };
 
   const outPath = path.join(__dirname, "public", "today.json");
