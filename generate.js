@@ -24,7 +24,11 @@ const toHHMM = m => {
   return `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 };
 
-/* ───────── DATE (IST) ───────── */
+function daysBetween(d1, d2){
+  return Math.floor((d1 - d2) / (1000 * 60 * 60 * 24));
+}
+
+/* ───────── DATE ───────── */
 function getIST(){
   const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
   return {
@@ -34,7 +38,7 @@ function getIST(){
   };
 }
 
-/* ───────── SUN (CHENNAI + SAFE) ───────── */
+/* ───────── SUN ───────── */
 async function getSunTimes(){
   try{
     const res = await fetch("https://api.sunrise-sunset.org/json?lat=13.0827&lng=80.2707&formatted=0");
@@ -47,13 +51,12 @@ async function getSunTimes(){
       .toLocaleTimeString("en-GB",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit"});
 
     return {sunrise, sunset};
-
   }catch{
     return {sunrise:"05:50", sunset:"18:23"};
   }
 }
 
-/* ───────── RAHU / YAMA / GULIKAI ───────── */
+/* ───────── RAHU/YAMA/GULI ───────── */
 const RAHU=[8,2,7,5,6,4,3];
 const YAMA=[5,4,3,2,1,7,6];
 const GULI=[7,6,5,4,3,2,8];
@@ -67,13 +70,10 @@ function kalam(sr, ss, order, w){
 /* ───────── ABHIJIT ───────── */
 function abhijit(sr, ss){
   const mid=(sr+ss)/2;
-  return {
-    start:toHHMM(mid-24),
-    end:toHHMM(mid+24)
-  };
+  return { start:toHHMM(mid-24), end:toHHMM(mid+24) };
 }
 
-/* ───────── HORA (CORRECT) ───────── */
+/* ───────── HORA ───────── */
 const HORA_SEQ=["Sun","Venus","Mercury","Moon","Saturn","Jupiter","Mars"];
 const DAY_START=["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"];
 
@@ -107,7 +107,7 @@ function horas(sr, ss, w){
   return out;
 }
 
-/* ───────── GOWRI (EXACT PATTERN) ───────── */
+/* ───────── GOWRI (ROTATION FIX) ───────── */
 const GOWRI_SEQ=[
   {en:"Soram", ta:"சோரம்", quality:"bad"},
   {en:"Uthi", ta:"உத்தி", quality:"good"},
@@ -119,51 +119,48 @@ const GOWRI_SEQ=[
   {en:"Sugam", ta:"சுகம்", quality:"good"}
 ];
 
-// 🔥 anchor: Apr 30, 2026 = Dhanam
-const BASE_DATE = new Date("2026-04-30T00:00:00+05:30");
-const BASE_INDEX = 6; // Dhanam
+// anchor → Apr 25 2026 = Soram (from your verified data)
+const BASE_DATE = new Date("2026-04-25T00:00:00+05:30");
+const BASE_INDEX = 0; // Soram
 
-function gowri(sr, ss, currentDate){
+function gowri(sr, ss, dateStr){
   const d = ss - sr;
   const n = 1440 - d;
 
   const dp = d / 8;
   const np = n / 8;
 
-  const today = new Date(currentDate + "T00:00:00+05:30");
-
+  const today = new Date(dateStr + "T00:00:00+05:30");
   const diff = daysBetween(today, BASE_DATE);
 
-  // 🔥 rotate sequence
   const start = (BASE_INDEX + diff % 8 + 8) % 8;
 
   const out=[];
 
-  // DAY
   for(let i=0;i<8;i++){
     const g = GOWRI_SEQ[(start+i)%8];
     out.push({
       period:"day",
       ...g,
-      start: toHHMM(sr + i*dp),
-      end: toHHMM(sr + (i+1)*dp)
+      start:toHHMM(sr+i*dp),
+      end:toHHMM(sr+(i+1)*dp)
     });
   }
 
-  // NIGHT
   for(let i=0;i<8;i++){
     const g = GOWRI_SEQ[(start+8+i)%8];
     out.push({
       period:"night",
       ...g,
-      start: toHHMM(ss + i*np),
-      end: toHHMM(ss + (i+1)*np)
+      start:toHHMM(ss+i*np),
+      end:toHHMM(ss+(i+1)*np)
     });
   }
 
   return out;
 }
-/* ───────── PANCHA PAKSHI (UI SAFE) ───────── */
+
+/* ───────── PAKSHI ───────── */
 const BIRDS=["owl","crow","rooster","peacock","falcon"];
 const ACT=[
   {en:"Rule",ta:"ஆட்சி",quality:"good"},
@@ -239,7 +236,7 @@ async function main(){
     abhijit:abhijit(sr,ss),
 
     horas:horas(sr,ss,weekdayIndex),
-    gowri:gowri(sr,ss,weekdayIndex),
+    gowri:gowri(sr,ss,date),
 
     jamams:jamams(sr,ss),
 
