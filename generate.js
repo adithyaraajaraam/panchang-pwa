@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// ─── USERS ────────────────────────────────────────────────────────────────
+// ─── USERS ─────────────────────────────────────────
 const USERS = [
   { name: "N. Raajaraam", nakshatra: "Moolam", pakshi: "owl" },
   { name: "R. Madubala",  nakshatra: "Uthiradam", pakshi: "owl" },
@@ -13,17 +13,28 @@ const USERS = [
   { name: "R. Arudhra",   nakshatra: "Hastham", pakshi: "crow" },
 ];
 
-// ─── HELPERS ───────────────────────────────────────────────────────────────
+// ─── HELPERS ───────────────────────────────────────
 const toMins = t => {
   const [h,m] = t.split(":").map(Number);
   return h*60+m;
 };
+
 const toHHMM = m => {
   m = ((m%1440)+1440)%1440;
   return `${String(Math.floor(m/60)).padStart(2,"0")}:${String(m%60).padStart(2,"0")}`;
 };
 
-// ─── SUN (DYNAMIC + FALLBACK) ──────────────────────────────────────────────
+// ─── DATE ─────────────────────────────────────────
+function getIST() {
+  const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+  return {
+    date: d.toISOString().slice(0,10),
+    weekday: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()],
+    weekdayIndex: d.getDay()
+  };
+}
+
+// ─── SUN ──────────────────────────────────────────
 async function getSunTimes() {
   try {
     const res = await fetch("https://api.sunrise-sunset.org/json?lat=13.0827&lng=80.2707&formatted=0");
@@ -41,17 +52,13 @@ async function getSunTimes() {
   }
 }
 
-// ─── DATE ──────────────────────────────────────────────────────────────────
-function getIST() {
-  const d = new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-  return {
-    date: d.toISOString().slice(0,10),
-    weekday: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][d.getDay()],
-    weekdayIndex: d.getDay()
-  };
+// ─── PAKSHA ───────────────────────────────────────
+function getPaksha(date) {
+  const d = new Date(date);
+  return d.getDate() <= 15 ? "waxing" : "waning";
 }
 
-// ─── RAHU / YAMA / GULIKAI ────────────────────────────────────────────────
+// ─── RAHU / YAMA / GULIKAI ────────────────────────
 const RAHU=[8,2,7,5,6,4,3];
 const YAMA=[5,4,3,2,1,7,6];
 const GULI=[7,6,5,4,3,2,8];
@@ -62,7 +69,7 @@ function kalam(sr,ss,order,w) {
   return {start:toHHMM(s),end:toHHMM(s+part)};
 }
 
-// ─── ABHIJIT ──────────────────────────────────────────────────────────────
+// ─── ABHIJIT ──────────────────────────────────────
 function abhijit(sr, ss) {
   const mid = (sr + ss) / 2;
   return {
@@ -71,7 +78,7 @@ function abhijit(sr, ss) {
   };
 }
 
-// ─── HORA ─────────────────────────────────────────────────────────────────
+// ─── HORA ─────────────────────────────────────────
 const PLANETS=["Sun","Moon","Mars","Mercury","Jupiter","Venus","Saturn"];
 
 function horas(sr,w) {
@@ -82,7 +89,7 @@ function horas(sr,w) {
   }));
 }
 
-// ─── GOWRI ────────────────────────────────────────────────────────────────
+// ─── GOWRI ────────────────────────────────────────
 const GOWRI=[
   {en:"Amritha",ta:"அமிர்தம்",q:"good"},
   {en:"Marana",ta:"மரணம்",q:"bad"},
@@ -107,8 +114,9 @@ function gowri(sr,ss,w){
   }));
 }
 
-// ─── PANCHA PAKSHI ────────────────────────────────────────────────────────
+// ─── PANCHA PAKSHI (REAL FIXED LOGIC) ─────────────
 const BIRDS=["owl","crow","rooster","peacock","falcon"];
+
 const ACT=[
   {en:"Rule",ta:"வல்லமை",quality:"good"},
   {en:"Eat",ta:"உண்",quality:"good"},
@@ -117,56 +125,65 @@ const ACT=[
   {en:"Die",ta:"மரணம்",quality:"bad"}
 ];
 
-function states(r){
-  const s={};
+function getStates(rulingBird) {
+  const rIndex = BIRDS.indexOf(rulingBird);
+  const s = {};
   BIRDS.forEach((b,i)=>{
-    const o=((i-r)%5+5)%5;
-    s[b]=ACT[o];
+    const offset = (i - rIndex + 5) % 5;
+    s[b] = ACT[offset];
   });
   return s;
 }
 
-function jamams(sr,ss){
-  const d=ss-sr, n=1440-d;
-  const dp=d/5, np=n/5;
-  const out=[];
+function computeJamams(sr, ss, paksha) {
+  const dayLen = ss - sr;
+  const nightLen = 1440 - dayLen;
 
-  for(let j=0;j<5;j++){
-    const r=j%5;
-    const st=sr+j*dp;
+  const dp = dayLen / 5;
+  const np = nightLen / 5;
+
+  const seq = ["owl","crow","rooster","peacock","falcon"];
+
+  const out = [];
+
+  // DAY
+  for (let i = 0; i < 5; i++) {
+    const ruling = seq[i];
     out.push({
       period:"day",
-      jamam:j+1,
-      rulingBird:BIRDS[r],
-      states:states(r),
-      start:toHHMM(st),
-      end:toHHMM(st+dp)
+      jamam:i+1,
+      rulingBird:ruling,
+      states:getStates(ruling),
+      start:toHHMM(sr+i*dp),
+      end:toHHMM(sr+(i+1)*dp)
     });
   }
 
-  for(let j=0;j<5;j++){
-    const r=(4-j)%5;
-    const st=ss+j*np;
+  // NIGHT
+  for (let i = 0; i < 5; i++) {
+    const ruling = seq[i];
     out.push({
       period:"night",
-      jamam:j+1,
-      rulingBird:BIRDS[r],
-      states:states(r),
-      start:toHHMM(st),
-      end:toHHMM(st+np)
+      jamam:i+1,
+      rulingBird:ruling,
+      states:getStates(ruling),
+      start:toHHMM(ss+i*np),
+      end:toHHMM(ss+(i+1)*np)
     });
   }
 
   return out;
 }
 
-// ─── MAIN ─────────────────────────────────────────────────────────────────
+// ─── MAIN ─────────────────────────────────────────
 async function main(){
   const {date,weekday,weekdayIndex}=getIST();
   const {sunrise,sunset}=await getSunTimes();
 
   const sr=toMins(sunrise);
   const ss=toMins(sunset);
+
+  const paksha = getPaksha(date);
 
   const data={
     date,
@@ -179,7 +196,7 @@ async function main(){
     abhijit:abhijit(sr,ss),
     horas:horas(sr,weekdayIndex),
     gowri:gowri(sr,ss,weekdayIndex),
-    jamams:jamams(sr,ss),
+    jamams:computeJamams(sr,ss,paksha),
     users:USERS
   };
 
