@@ -1,14 +1,14 @@
-name: Daily Panchang Generate & Deploy
+name: Daily Panchang Generate
 
 on:
   schedule:
-    # Run at 00:01 IST = 18:31 UTC previous day
-    - cron: "31 18 * * *"
-  workflow_dispatch: # Allow manual run
+    - cron: "31 18 * * *"   # 00:01 IST
+  workflow_dispatch:
 
 jobs:
-  generate-and-deploy:
+  generate:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,20 +18,16 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install deps
+        run: npm install
+
       - name: Generate today.json
         run: node generate.js
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: "--prod"
-          working-directory: ./
+      - name: Commit & Push
+        run: |
+          git config user.name "bot"
+          git config user.email "bot@mail.com"
+          git add public/today.json
+          git commit -m "update today.json" || echo "no changes"
+          git push
