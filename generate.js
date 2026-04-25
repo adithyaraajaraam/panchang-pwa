@@ -119,42 +119,50 @@ const GOWRI_SEQ=[
   {en:"Sugam", ta:"சுகம்", quality:"good"}
 ];
 
-const GOWRI_START=[1,3,4,5,6,7,0];
+// 🔥 anchor: Apr 30, 2026 = Dhanam
+const BASE_DATE = new Date("2026-04-30T00:00:00+05:30");
+const BASE_INDEX = 6; // Dhanam
 
-function gowri(sr, ss, w){
-  const d=ss-sr;
-  const n=1440-d;
+function gowri(sr, ss, currentDate){
+  const d = ss - sr;
+  const n = 1440 - d;
 
-  const dp=d/8;
-  const np=n/8;
+  const dp = d / 8;
+  const np = n / 8;
 
-  const start=GOWRI_START[w];
+  const today = new Date(currentDate + "T00:00:00+05:30");
+
+  const diff = daysBetween(today, BASE_DATE);
+
+  // 🔥 rotate sequence
+  const start = (BASE_INDEX + diff % 8 + 8) % 8;
 
   const out=[];
 
+  // DAY
   for(let i=0;i<8;i++){
-    const g=GOWRI_SEQ[(start+i)%8];
+    const g = GOWRI_SEQ[(start+i)%8];
     out.push({
       period:"day",
       ...g,
-      start:toHHMM(sr+i*dp),
-      end:toHHMM(sr+(i+1)*dp)
+      start: toHHMM(sr + i*dp),
+      end: toHHMM(sr + (i+1)*dp)
     });
   }
 
+  // NIGHT
   for(let i=0;i<8;i++){
-    const g=GOWRI_SEQ[(start+8+i)%8];
+    const g = GOWRI_SEQ[(start+8+i)%8];
     out.push({
       period:"night",
       ...g,
-      start:toHHMM(ss+i*np),
-      end:toHHMM(ss+(i+1)*np)
+      start: toHHMM(ss + i*np),
+      end: toHHMM(ss + (i+1)*np)
     });
   }
 
   return out;
 }
-
 /* ───────── PANCHA PAKSHI (UI SAFE) ───────── */
 const BIRDS=["owl","crow","rooster","peacock","falcon"];
 const ACT=[
