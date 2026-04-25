@@ -15,10 +15,10 @@ const SUNRISE = "06:10";
 const SUNSET  = "18:25";
 
 const USERS = [
-  { name: "N. Raajaraam", dob: "1970-04-26", place: "Chennai",        rasi: "Thanusu", nakshatra: "Moolam",    pakshi: "vulture" },
-  { name: "R. Madubala",  dob: "1977-02-16", place: "Tirutturaipundi",rasi: "Makaram", nakshatra: "Uthiradam", pakshi: "crow"    },
-  { name: "R. Adithya",   dob: "2001-09-14", place: "Chennai",        rasi: "Kadagam", nakshatra: "Poosam",    pakshi: "owl"     },
-  { name: "R. Arudhra",   dob: "2004-09-16", place: "Chennai",        rasi: "Kanni",   nakshatra: "Hastham",   pakshi: "rooster" },
+  { name: "N. Raajaraam", dob: "1970-04-26", place: "Chennai",        rasi: "Thanusu", nakshatra: "Moolam",    pakshi: "owl" },
+  { name: "R. Madubala",  dob: "1977-02-16", place: "Tirutturaipundi",rasi: "Makaram", nakshatra: "Uthiradam", pakshi: "owl" },
+  { name: "R. Adithya",   dob: "2001-09-14", place: "Chennai",        rasi: "Kadagam", nakshatra: "Poosam",    pakshi: "rooster" },
+  { name: "R. Arudhra",   dob: "2004-09-16", place: "Chennai",        rasi: "Kanni",   nakshatra: "Hastham",   pakshi: "crow" },
 ];
 
 // ─── HELPERS ───────────────────────────────────────────────────────────────
