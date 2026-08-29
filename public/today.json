@@ -1,19 +1,19 @@
 {
-  "date": "2026-08-29",
-  "weekday": "Saturday",
+  "date": "2026-08-30",
+  "weekday": "Sunday",
   "sunrise": "05:56",
   "sunset": "18:23",
   "rahuKalam": {
-    "start": "09:03",
-    "end": "10:36"
-  },
-  "yamagandam": {
-    "start": "13:43",
-    "end": "15:16"
-  },
-  "gulikai": {
     "start": "16:50",
     "end": "18:23"
+  },
+  "yamagandam": {
+    "start": "12:10",
+    "end": "13:43"
+  },
+  "gulikai": {
+    "start": "15:16",
+    "end": "16:50"
   },
   "abhijit": {
     "start": "11:46",
@@ -21,122 +21,122 @@
   },
   "horas": [
     {
-      "planet": "Saturn",
+      "planet": "Sun",
       "start": "05:56",
       "end": "06:58"
     },
     {
-      "planet": "Jupiter",
+      "planet": "Venus",
       "start": "06:58",
       "end": "08:01"
     },
     {
-      "planet": "Mars",
+      "planet": "Mercury",
       "start": "08:01",
       "end": "09:03"
     },
     {
-      "planet": "Sun",
+      "planet": "Moon",
       "start": "09:03",
       "end": "10:05"
     },
     {
-      "planet": "Venus",
+      "planet": "Saturn",
       "start": "10:05",
       "end": "11:07"
     },
     {
-      "planet": "Mercury",
+      "planet": "Jupiter",
       "start": "11:07",
       "end": "12:10"
     },
     {
-      "planet": "Moon",
+      "planet": "Mars",
       "start": "12:10",
       "end": "13:12"
     },
     {
-      "planet": "Saturn",
+      "planet": "Sun",
       "start": "13:12",
       "end": "14:14"
     },
     {
-      "planet": "Jupiter",
+      "planet": "Venus",
       "start": "14:14",
       "end": "15:16"
     },
     {
-      "planet": "Mars",
+      "planet": "Mercury",
       "start": "15:16",
       "end": "16:19"
     },
     {
-      "planet": "Sun",
+      "planet": "Moon",
       "start": "16:19",
       "end": "17:21"
     },
     {
-      "planet": "Venus",
+      "planet": "Saturn",
       "start": "17:21",
       "end": "18:23"
     },
     {
-      "planet": "Mercury",
+      "planet": "Jupiter",
       "start": "18:23",
       "end": "19:21"
     },
     {
-      "planet": "Moon",
+      "planet": "Mars",
       "start": "19:21",
       "end": "20:19"
     },
     {
-      "planet": "Saturn",
+      "planet": "Sun",
       "start": "20:19",
       "end": "21:16"
     },
     {
-      "planet": "Jupiter",
+      "planet": "Venus",
       "start": "21:16",
       "end": "22:14"
     },
     {
-      "planet": "Mars",
+      "planet": "Mercury",
       "start": "22:14",
       "end": "23:12"
     },
     {
-      "planet": "Sun",
+      "planet": "Moon",
       "start": "23:12",
       "end": "00:10"
     },
     {
-      "planet": "Venus",
+      "planet": "Saturn",
       "start": "00:10",
       "end": "01:07"
     },
     {
-      "planet": "Mercury",
+      "planet": "Jupiter",
       "start": "01:07",
       "end": "02:05"
     },
     {
-      "planet": "Moon",
+      "planet": "Mars",
       "start": "02:05",
       "end": "03:03"
     },
     {
-      "planet": "Saturn",
+      "planet": "Sun",
       "start": "03:03",
       "end": "04:01"
     },
     {
-      "planet": "Jupiter",
+      "planet": "Venus",
       "start": "04:01",
       "end": "04:58"
     },
     {
-      "planet": "Mars",
+      "planet": "Mercury",
       "start": "04:58",
       "end": "05:56"
     }
@@ -144,65 +144,65 @@
   "gowri": [
     {
       "period": "day",
-      "en": "Soram",
-      "ta": "சோரம்",
-      "quality": "bad",
-      "start": "05:56",
-      "end": "07:29"
-    },
-    {
-      "period": "day",
       "en": "Uthi",
       "ta": "உத்தி",
       "quality": "good",
-      "start": "07:29",
-      "end": "09:03"
-    },
-    {
-      "period": "day",
-      "en": "Visham",
-      "ta": "விஷம்",
-      "quality": "bad",
-      "start": "09:03",
-      "end": "10:36"
+      "start": "05:56",
+      "end": "07:29"
     },
     {
       "period": "day",
       "en": "Amirdha",
       "ta": "அமிர்தம்",
       "quality": "good",
-      "start": "10:36",
-      "end": "12:10"
+      "start": "07:29",
+      "end": "09:03"
     },
     {
       "period": "day",
       "en": "Rogam",
       "ta": "ரோகம்",
       "quality": "bad",
-      "start": "12:10",
-      "end": "13:43"
+      "start": "09:03",
+      "end": "10:36"
     },
     {
       "period": "day",
       "en": "Laabam",
       "ta": "லாபம்",
       "quality": "good",
-      "start": "13:43",
-      "end": "15:16"
+      "start": "10:36",
+      "end": "12:10"
     },
     {
       "period": "day",
       "en": "Dhanam",
       "ta": "தனம்",
       "quality": "good",
-      "start": "15:16",
-      "end": "16:50"
+      "start": "12:10",
+      "end": "13:43"
     },
     {
       "period": "day",
       "en": "Sugam",
       "ta": "சுகம்",
       "quality": "good",
+      "start": "13:43",
+      "end": "15:16"
+    },
+    {
+      "period": "day",
+      "en": "Soram",
+      "ta": "சோரம்",
+      "quality": "bad",
+      "start": "15:16",
+      "end": "16:50"
+    },
+    {
+      "period": "day",
+      "en": "Visham",
+      "ta": "விஷம்",
+      "quality": "bad",
       "start": "16:50",
       "end": "18:23"
     },
